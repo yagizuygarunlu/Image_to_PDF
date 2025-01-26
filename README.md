@@ -38,7 +38,7 @@ git clone https://github.com/yagizuygarunlu/Image_to_PDF.git
 
 2. Navigate to the project directory:
 ```bash
-cd Image_to_PDF
+cd Image_to_PDF/src
 ```
 
 3. Build the project:
@@ -49,6 +49,11 @@ dotnet build
 ## Usage
 
 1. Run the application:
+```bash
+dotnet run
+```
+
+Or from the root directory:
 ```bash
 dotnet run --project src/Image_to_PDF.csproj
 ```
