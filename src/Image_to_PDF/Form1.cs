@@ -5,6 +5,7 @@ using System.IO;
 using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
 using System.Text;
+using System.Diagnostics;
 
 namespace Image_to_PDF;
 
@@ -15,7 +16,9 @@ public partial class Form1 : Form
     private Button pasteButton = null!;
     private Button convertButton = null!;
     private Button browseButton = null!;
+    private Button htmlButton = null!;
     private TextBox outputPathBox = null!;
+    private TextBox htmlTextBox = null!;
     private Image? currentImage;
 
     public Form1()
@@ -27,8 +30,8 @@ public partial class Form1 : Form
 
     private void InitializeCustomComponents()
     {
-        this.Text = "Image to PDF Converter";
-        this.Size = new Size(800, 600);
+        this.Text = "Image/HTML to PDF Converter";
+        this.Size = new Size(800, 800);
 
         previewBox = new PictureBox
         {
@@ -52,6 +55,30 @@ public partial class Form1 : Form
             Location = new Point(230, 440)
         };
 
+        convertButton = new Button
+        {
+            Text = "Convert to PDF",
+            Size = new Size(120, 30),
+            Location = new Point(360, 440),
+            Enabled = false
+        };
+
+        htmlTextBox = new TextBox
+        {
+            Multiline = true,
+            ScrollBars = ScrollBars.Vertical,
+            Size = new Size(600, 150),
+            Location = new Point(100, 530),
+            PlaceholderText = "Enter HTML content here..."
+        };
+
+        htmlButton = new Button
+        {
+            Text = "Convert HTML to PDF",
+            Size = new Size(120, 30),
+            Location = new Point(100, 690)
+        };
+
         outputPathBox = new TextBox
         {
             Size = new Size(450, 30),
@@ -65,17 +92,10 @@ public partial class Form1 : Form
             Location = new Point(580, 480)
         };
 
-        convertButton = new Button
-        {
-            Text = "Convert to PDF",
-            Size = new Size(120, 30),
-            Location = new Point(360, 440),
-            Enabled = false
-        };
-
         this.Controls.AddRange(new Control[] { 
             previewBox, selectButton, pasteButton, 
-            convertButton, outputPathBox, browseButton 
+            convertButton, outputPathBox, browseButton,
+            htmlTextBox, htmlButton
         });
     }
 
@@ -85,6 +105,7 @@ public partial class Form1 : Form
         pasteButton.Click += PasteButton_Click;
         convertButton.Click += ConvertButton_Click;
         browseButton.Click += BrowseButton_Click;
+        htmlButton.Click += HtmlButton_Click;
     }
 
     private void SelectButton_Click(object? sender, EventArgs e)
@@ -140,6 +161,56 @@ public partial class Form1 : Form
         }
     }
 
+    private void HtmlButton_Click(object? sender, EventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(htmlTextBox.Text))
+        {
+            MessageBox.Show("Please enter HTML content!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+
+        string outputPath = outputPathBox.Text;
+        if (string.IsNullOrEmpty(outputPath))
+        {
+            using (SaveFileDialog dialog = new SaveFileDialog())
+            {
+                dialog.Filter = "PDF files (*.pdf)|*.pdf";
+                dialog.DefaultExt = "pdf";
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    outputPath = dialog.FileName;
+                }
+                else return;
+            }
+        }
+
+        try
+        {
+            // Create a temporary HTML file
+            string tempHtmlPath = Path.Combine(Path.GetTempPath(), "temp.html");
+            File.WriteAllText(tempHtmlPath, htmlTextBox.Text);
+
+            // Open the HTML file in the default browser
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = tempHtmlPath,
+                UseShellExecute = true
+            });
+
+            MessageBox.Show(
+                "The HTML content has been opened in your default browser.\n" +
+                "Please use the browser's print function (Ctrl+P) to save as PDF.",
+                "Next Steps",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+
     private void ConvertButton_Click(object? sender, EventArgs e)
     {
         if (currentImage == null)
@@ -167,7 +238,7 @@ public partial class Form1 : Form
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            using (var document = new PdfDocument())
+            using (var document = new PdfSharpCore.Pdf.PdfDocument())
             {
                 var page = document.AddPage();
                 var gfx = XGraphics.FromPdfPage(page);

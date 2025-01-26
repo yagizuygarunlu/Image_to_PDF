@@ -1,6 +1,6 @@
 # Image to PDF Converter
 
-A modern Windows Forms application that converts images to PDF files. Built with .NET 9 and PdfSharpCore, this application provides a user-friendly interface for converting images to PDF format.
+A modern Windows Forms application that converts images and HTML content to PDF files. Built with .NET 9 and PdfSharpCore, this application provides a user-friendly interface for converting both images and HTML content to PDF format.
 
 ## Features
 
@@ -10,6 +10,8 @@ A modern Windows Forms application that converts images to PDF files. Built with
 - 📐 Automatic image scaling
 - 💫 Modern UI with visual feedback
 - 🎨 Supports common image formats (JPEG, PNG, GIF, BMP)
+- 🌐 Convert HTML content to PDF using browser's print function
+- 📱 Responsive layout
 
 ## Project Structure
 
@@ -28,6 +30,7 @@ Image_to_PDF/
 - .NET 9.0 SDK or later
 - Windows operating system
 - Visual Studio 2022 or compatible IDE
+- A modern web browser (for HTML to PDF conversion)
 
 ## Installation
 
@@ -58,15 +61,19 @@ Or from the root directory:
 dotnet run --project src/Image_to_PDF.csproj
 ```
 
-2. Choose one of the following options:
+2. For Image to PDF conversion:
    - Click "Select Image" to choose an image file
-   - Click "Paste from Clipboard" to use an image from your clipboard
+   - Or click "Paste from Clipboard" to use an image from your clipboard
+   - Preview your image in the application window
+   - (Optional) Click "Browse" to choose a custom output location
+   - Click "Convert to PDF" to create your PDF file
 
-3. Preview your image in the application window
-
-4. (Optional) Click "Browse" to choose a custom output location
-
-5. Click "Convert to PDF" to create your PDF file
+3. For HTML to PDF conversion:
+   - Enter your HTML content in the text box at the bottom
+   - Click "Convert HTML to PDF"
+   - The HTML content will open in your default browser
+   - Use the browser's print function (Ctrl+P) to save as PDF
+   - Select "Save as PDF" in the print dialog
 
 ## Dependencies
 
