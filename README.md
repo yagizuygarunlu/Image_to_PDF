@@ -17,12 +17,13 @@ A modern Windows Forms application that converts images and HTML content to PDF 
 
 ```
 Image_to_PDF/
-├── src/                    # Source code
-│   ├── Program.cs         # Application entry point
-│   ├── MainForm.cs        # Main application window
-│   └── Image_to_PDF.csproj # Project file
-├── LICENSE                # MIT License
-└── README.md             # This file
+├── src/
+│   └── Image_to_PDF/        # Main project directory
+│       ├── Program.cs       # Application entry point
+│       ├── Form1.cs         # Main application window
+│       └── Image_to_PDF.csproj # Project file
+├── LICENSE                  # MIT License
+└── README.md               # This file
 ```
 
 ## Requirements
