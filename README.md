@@ -77,9 +77,21 @@ dotnet run --project src/Image_to_PDF.csproj
 
 ## Dependencies
 
-- PdfSharpCore (1.3.62) - PDF creation and manipulation
-- System.Drawing.Common (8.0.1) - Image processing
-- System.Text.Encoding.CodePages (8.0.0) - Text encoding support
+All dependencies used in this project are free and open-source:
+
+- PdfSharpCore (1.3.62) - PDF creation and manipulation (MIT License)
+- System.Drawing.Common (8.0.1) - Image processing (MIT License)
+- System.Text.Encoding.CodePages (8.0.0) - Text encoding support (MIT License)
+- Microsoft.NETCore.App - .NET Core runtime and base libraries (MIT License)
+- Microsoft.WindowsDesktop.App.WindowsForms - Windows Forms UI framework (MIT License)
+
+## Notes
+
+For HTML to PDF conversion, the application uses your system's default browser's built-in PDF export functionality. This approach ensures:
+- No dependency on commercial PDF libraries
+- High-quality PDF output
+- Consistent rendering across different systems
+- Support for modern HTML/CSS features
 
 ## Contributing
 
