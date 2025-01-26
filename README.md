@@ -1,25 +1,39 @@
 # Image to PDF Converter
 
-A .NET 9 console application that converts images to PDF files. The application supports both file selection and clipboard images.
+A modern Windows Forms application that converts images to PDF files. Built with .NET 9 and PdfSharpCore, this application provides a user-friendly interface for converting images to PDF format.
 
 ## Features
 
-- Convert image files to PDF
-- Convert clipboard images to PDF
-- Supports common image formats (JPEG, PNG, GIF, BMP)
-- Simple command-line interface
-- Automatic image scaling to fit PDF page
+- 🖼️ Convert image files to PDF
+- 📋 Paste images directly from clipboard
+- 🔍 Live image preview
+- 📐 Automatic image scaling
+- 💫 Modern UI with visual feedback
+- 🎨 Supports common image formats (JPEG, PNG, GIF, BMP)
+
+## Project Structure
+
+```
+Image_to_PDF/
+├── src/                    # Source code
+│   ├── Program.cs         # Application entry point
+│   ├── MainForm.cs        # Main application window
+│   └── Image_to_PDF.csproj # Project file
+├── LICENSE                # MIT License
+└── README.md             # This file
+```
 
 ## Requirements
 
 - .NET 9.0 SDK or later
-- Windows operating system (for Windows Forms functionality)
+- Windows operating system
+- Visual Studio 2022 or compatible IDE
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/Image_to_PDF.git
+git clone https://github.com/yagizuygarunlu/Image_to_PDF.git
 ```
 
 2. Navigate to the project directory:
@@ -36,19 +50,28 @@ dotnet build
 
 1. Run the application:
 ```bash
-dotnet run
+dotnet run --project src/Image_to_PDF.csproj
 ```
 
 2. Choose one of the following options:
-   - Option 1: Select an image file using the file dialog
-   - Option 2: Convert an image from clipboard (copy an image before selecting this option)
+   - Click "Select Image" to choose an image file
+   - Click "Paste from Clipboard" to use an image from your clipboard
 
-3. Optionally specify an output PDF path, or press Enter to use the default path (same name as the image but with .pdf extension)
+3. Preview your image in the application window
+
+4. (Optional) Click "Browse" to choose a custom output location
+
+5. Click "Convert to PDF" to create your PDF file
 
 ## Dependencies
 
-- itext7 (8.0.2)
-- System.Drawing.Common (8.0.1)
+- PdfSharpCore (1.3.62) - PDF creation and manipulation
+- System.Drawing.Common (8.0.1) - Image processing
+- System.Text.Encoding.CodePages (8.0.0) - Text encoding support
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
